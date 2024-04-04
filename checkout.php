@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<header>
+        <h1>Keranjang Belanja</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="catalog.php">Katalog</a></li>
+                <li><a href="cart.php">Keranjang</a></li>
+                <li><a href="checkout.php">Checkout</a></li>
+                <li><a href="login.php">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="cart">
+        <?php
+        session_start();
+        // Cek apakah keranjang kosong
+        if (empty($_SESSION['cart'])) {
+            echo "<p>Keranjang belanja Anda kosong.</p>";
+        } else {
+            echo "<table>";
+            echo "<tr><th>Nama Produk</th><th>Jumlah</th><th>Harga</th></tr>";
+            // Loop untuk menampilkan setiap item dalam keranjang
+            foreach ($_SESSION['cart'] as $item) {
+                echo "<tr>";
+                echo "<td>" . $item['nama'] . "</td>";
+                echo "<td>" . $item['jumlah'] . "</td>";
+                echo "<td>Rp " . number_format($item['harga'], 0, ',', '.') . "</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+        }
+        ?>
+    </section>
+</body>
+</html>
